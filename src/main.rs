@@ -28,19 +28,18 @@ async fn main() -> std::io::Result<()> {
 async fn forward_get(body: String, endpoint: web::Path<String>) -> HttpResponse {
     let client = reqwest::Client::new();
 
-    let response = client
+    let request = client
         .get(format!("https://new.myfreemp3juices.cc/api/{}", endpoint))
         .header(
             "Content-Type",
-            "application/application/x-www-form-urlencoded",
+            "application/x-www-form-urlencoded",
         )
         .header("Cache-Control", "no-cache, no-store, must-revalidate")
         .header("Pragma", "no-cache")
         .header("Expires", "0")
-        .body(body.to_string())
-        .send()
-        .await
-        .unwrap();
+        .body(body);
+
+    let response = request.send().await.unwrap();
 
     HttpResponse::Ok().body(response.text().await.unwrap())
 }
@@ -49,19 +48,18 @@ async fn forward_get(body: String, endpoint: web::Path<String>) -> HttpResponse 
 async fn forward_post(body: String, endpoint: web::Path<String>) -> HttpResponse {
     let client = reqwest::Client::new();
 
-    let response = client
+    let request = client
         .post(format!("https://new.myfreemp3juices.cc/api/{}", endpoint))
         .header(
             "Content-Type",
-            "application/application/x-www-form-urlencoded",
+            "application/x-www-form-urlencoded",
         )
         .header("Cache-Control", "no-cache, no-store, must-revalidate")
         .header("Pragma", "no-cache")
         .header("Expires", "0")
-        .body(body.to_string())
-        .send()
-        .await
-        .unwrap();
+        .body(body);
+
+    let response = request.send().await.unwrap();
 
     HttpResponse::Ok().body(response.text().await.unwrap())
 }
